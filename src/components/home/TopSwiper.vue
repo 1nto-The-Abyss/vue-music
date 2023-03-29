@@ -8,6 +8,8 @@
   </div>
 </template>
 <script>
+import { getBanner } from '@/api/home'
+import { onMounted } from 'vue'
 export default {
   name: "TopSwiper",
   setup() {
@@ -16,7 +18,12 @@ export default {
       'https://fastly.jsdelivr.net/npm/@vant/assets/apple-2.jpeg',
     ];
     return { images };
-  }
+  },
+  mounted() {
+    getBanner().then((res) => {
+        console.log("11111",res);
+      })
+  },
 };
 </script>
 <style scoped lang="less">
