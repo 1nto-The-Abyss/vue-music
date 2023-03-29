@@ -22,7 +22,6 @@ export default {
     onMounted(async () => {
       let res = await _getBanner()
       images.list = res.data.banners
-      console.log(images.list,res.data.banners);
     })
     return { images };
   }
