@@ -1,5 +1,6 @@
 <template>
   <router-view/>
+  <van-button type="primary">主要按钮</van-button>
 </template>
 
 <style lang="less">
