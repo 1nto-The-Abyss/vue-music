@@ -1,29 +1,31 @@
 <template>
   <div>
-    <van-swipe :autoplay="3000" indicator-color="#d43c33">
-      <van-swipe-item v-for="(image, index) in images" :key="index">
-        <img v-lazy="image" />
+    <van-swipe :autoplay="3000" lazy-render indicator-color="#d43c33">
+      <van-swipe-item v-for="image in images.list" :key="image">
+        <img :src="image.pic" />
       </van-swipe-item>
     </van-swipe>
   </div>
 </template>
 <script>
-import { getBanner } from '@/api/home'
-import { onMounted } from 'vue'
+import { _getBanner } from '@/api/home'
+import { reactive,onMounted } from 'vue'
 export default {
   name: "TopSwiper",
   setup() {
-    const images = [
-      'https://fastly.jsdelivr.net/npm/@vant/assets/apple-1.jpeg',
-      'https://fastly.jsdelivr.net/npm/@vant/assets/apple-2.jpeg',
-    ];
+    const images = reactive({
+      list: [
+        'https://fastly.jsdelivr.net/npm/@vant/assets/apple-1.jpeg',
+        'https://fastly.jsdelivr.net/npm/@vant/assets/apple-2.jpeg',
+      ]
+    })
+    onMounted(async () => {
+      let res = await _getBanner()
+      images.list = res.data.banners
+      console.log(images.list,res.data.banners);
+    })
     return { images };
-  },
-  mounted() {
-    getBanner().then((res) => {
-        console.log("11111",res);
-      })
-  },
+  }
 };
 </script>
 <style scoped lang="less">
@@ -35,6 +37,7 @@ export default {
     img {
       width: 100%;
       height: 100%;
+      border-radius: .2rem;
     }
   }
 }
