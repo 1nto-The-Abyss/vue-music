@@ -1,19 +1,10 @@
 # vue3-music
 
-## Project setup
-```
-npm install
-```
+## 技术栈
+- vue3
+- vant
+- axios
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## 接口
+- 网易云音乐Api项目地址： https://github.com/Binaryify/NeteaseCloudMusicApi
+- 接口文档： https://binaryify.github.io/NeteaseCloudMusicApi/#/
