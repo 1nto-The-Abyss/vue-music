@@ -2,14 +2,16 @@ import {
   Button,
   Swipe, 
   SwipeItem,
-  Lazyload 
+  Lazyload,
+  Icon 
 } from 'vant'
 
 const plugins = [
   Button,
   Swipe, 
   SwipeItem,
-  Lazyload
+  Lazyload,
+  Icon
 ]
 export default function getVant(app) {
   plugins.forEach(item => {

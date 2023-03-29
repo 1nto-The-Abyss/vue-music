@@ -7,9 +7,11 @@
     <div class="box">
       <div class="list">
         <div class="item" v-for="item in list.data">
-          <span class="playCount">▶{{changeCount(item.playCount)}}</span>
-          <img :src="item.picUrl" alt="歌单封面">
-          <div class="name">{{item.name}}</div>
+          <router-link :to="{path:'/PlayListDetail',query:{id:item.id}}">
+            <span class="playCount">▶{{changeCount(item.playCount)}}</span>
+            <img :src="item.picUrl" alt="歌单封面">
+            <div class="name">{{item.name}}</div>
+          </router-link>
         </div>
       </div>
     </div>
@@ -17,13 +19,14 @@
 </template>
 <script>
 import { reactive, onMounted } from 'vue'
-import { _getMusicList } from '@/api/home'
+import { _getPlayList } from '@/api/home'
 export default {
-  name: "MusicList",
+  name: "PlayList",
   setup() {
     let list = reactive({
       data: []
     })
+    // 处理播放量
     function changeCount(num) {
       if(num >= 100000000) {
         return (num/100000000).toFixed(1) + '亿'
@@ -32,7 +35,7 @@ export default {
       }
     }
     onMounted(() => {
-      _getMusicList().then((res) => {
+      _getPlayList().then((res) => {
         list.data = res.data.result
       })
     })
@@ -94,6 +97,7 @@ export default {
       height: .6rem;
       overflow: hidden;
       text-overflow: ellipsis;
+      color: #333;
     }
   }
 }
