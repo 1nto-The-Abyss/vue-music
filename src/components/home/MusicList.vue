@@ -1,0 +1,100 @@
+<template>
+  <div>
+    <div class="title">
+      <div class="left">发现好歌单</div>
+      <van-button type="default" round >查看更多</van-button>
+    </div>
+    <div class="box">
+      <div class="list">
+        <div class="item" v-for="item in list.data">
+          <span class="playCount">▶{{changeCount(item.playCount)}}</span>
+          <img :src="item.picUrl" alt="歌单封面">
+          <div class="name">{{item.name}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+import { reactive, onMounted } from 'vue'
+import { _getMusicList } from '@/api/home'
+export default {
+  name: "MusicList",
+  setup() {
+    let list = reactive({
+      data: []
+    })
+    function changeCount(num) {
+      if(num >= 100000000) {
+        return (num/100000000).toFixed(1) + '亿'
+      } else if (num >= 10000) {
+        return (num/10000).toFixed(1) + '万'
+      }
+    }
+    onMounted(() => {
+      _getMusicList().then((res) => {
+        list.data = res.data.result
+      })
+    })
+    return { 
+      list,
+      changeCount 
+    }
+  }
+}
+</script>
+<style scoped lang="less">
+.title {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: .2rem;
+  .left {
+    font-weight: 700;
+    font-size: .4rem;
+    line-height: .6rem;
+  }
+  .van-button {
+    height: .6rem;
+  }
+}
+.box {
+  width: 100vw;
+  height: 2.8rem;
+  position: relative;
+  overflow: hidden;
+}
+.list {
+  position: absolute;
+  left: 0;
+  display: flex;
+  width: 100vw;
+  height: 3rem;
+  overflow-x: scroll;
+  padding: 0 .2rem;
+  .item {
+    margin: .1rem;
+    position: relative;
+    .playCount {
+      position: absolute;
+      top: .1rem;
+      right: .1rem;
+      color: #fff;
+      font-size: .12rem;
+    }
+    img {
+      width: 2rem;
+      height: 2rem;
+      border-radius: .2rem;
+    }
+    .name {
+      font-size: .16rem;
+      line-height: .3rem;
+      position: relative;
+      height: .6rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}
+</style>
