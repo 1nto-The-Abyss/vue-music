@@ -1,7 +1,8 @@
 <template>
-  <div>
+  <!-- playlist.creator传值成功再渲染数据 -->
+  <div v-if="playlist.creator" class="detail_top">
+    <img :src="playlist.coverImgUrl" alt="背景图片" class="bgImg">
     <div class="top">
-      <img :src="playlist.coverImgUrl" alt="背景图片" class="bgImg">
       <div class="left">
         <van-icon name="arrow-left" @click="$router.go(-1)"/>
         <span>歌单</span>
@@ -62,13 +63,12 @@
 export default {
   name: "DetailTop",
   setup(props) {
-    console.log("playlist",props);
     // 页面刷新，丢失数据
     // creator层级太深，DOM加载完成时获取不到值
     // 判断props是否传值成功，不成功从本地存储中取
-    if(!props.playlist.creator) {
-      props.playlist.creator = JSON.parse(sessionStorage.getItem('playlist')).playlist.creator
-    }
+    // if(!props.playlist.creator) {
+    //   props.playlist.creator = JSON.parse(sessionStorage.getItem('playlist')).playlist.creator
+    // }
     function changeCount(num) {
       if(num >= 100000000) {
         return (num/100000000).toFixed(1) + '亿'
@@ -82,6 +82,17 @@ export default {
 }
 </script>
 <style scoped lang="less">
+.detail_top {
+  position: relative;
+  .bgImg {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 8rem;
+    z-index: -1;
+    filter: blur(.4rem)
+  }
+}
 .top {
   padding: 0 .2rem;
   height: 1.2rem;
@@ -105,17 +116,9 @@ export default {
       fill: #fff;
     }
   }
-  .bgImg {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 8rem;
-    z-index: -1;
-    filter: blur(.4rem)
-  }
 }
 .center {
-  padding: .2rem;
+  padding: .3rem;
   display: flex;
   justify-content: space-between;
   .left {

@@ -1,8 +1,12 @@
 <template>
   <div class="home">
+    <!-- 顶部导航栏 -->
     <top-nav></top-nav>
+    <!-- 顶部轮播图 -->
     <top-swiper></top-swiper>
+    <!-- 功能列表 -->
     <feature-list></feature-list>
+    <!-- 歌单列表 -->
     <play-list></play-list>
   </div>
 </template>
