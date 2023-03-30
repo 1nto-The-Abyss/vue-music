@@ -1,7 +1,15 @@
 <template>
   <router-view/>
+  <Player></Player>
 </template>
-
+<script>
+import Player from "@/components/player/Player.vue"
+export default {
+  components: {
+    Player
+  }
+}
+</script>
 <style lang="less">
 *{
   margin: 0;
