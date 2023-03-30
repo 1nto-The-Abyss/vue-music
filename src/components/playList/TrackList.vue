@@ -89,7 +89,7 @@ export default {
   }
 }
 .track {
-  height: 1rem;
+  height: 1.2rem;
   padding: 0 .3rem;
   display: flex;
   justify-content: space-between;
@@ -97,16 +97,18 @@ export default {
     display: flex;
     .order {
       text-align: left;
-      width: .4rem;
+      width: .3rem;
+      margin-right: .2rem;
       height: 100%;
-      line-height: 1rem;
+      line-height: 1.2rem;
     }
     .info{
       display: flex;
       flex-direction: column;
       justify-content: center;
       .name {
-        font-weight: 700
+        font-weight: 700;
+        margin: .1rem 0;
       }
       .author {
         font-size: .16rem;

@@ -112,26 +112,30 @@ export default {
   }
 }
 .center {
+  width: 100%;
   padding: .3rem;
   display: flex;
   justify-content: space-between;
   .left {
+    width: 40%;
     position: relative;
     img {
+      position: absolute;
       width: 2.4rem;
       height: 2.4rem;
       border-radius: .2rem;
     }
     span {
       color: #fff;
-      font-size: .16rem;
+      font-size: .2rem;
       position: absolute;
-      right: .1rem;
+      left: 1.6rem;
       top: .1rem;
     }
   }
   .right {
-    width: 220px;
+    width: 60%;
+    padding-left: .2rem;
     .name {
       color: #fff;
       font-weight: 700;
