@@ -17,7 +17,7 @@
     <div class="center">
       <div class="left">
         <img :src="playlist.coverImgUrl" alt="">
-        <span>▶{{changeCount(playlist.playCount)}}</span>
+        <span>▶{{formatCount(playlist.playCount)}}</span>
       </div>
       <div class="right">
         <div class="name">{{playlist.name}}</div>
@@ -60,6 +60,7 @@
   </div>
 </template>
 <script>
+import formatCount from '@/hooks/formatCount'
 export default {
   name: "DetailTop",
   setup(props) {
@@ -69,14 +70,7 @@ export default {
     // if(!props.playlist.creator) {
     //   props.playlist.creator = JSON.parse(sessionStorage.getItem('playlist')).playlist.creator
     // }
-    function changeCount(num) {
-      if(num >= 100000000) {
-        return (num/100000000).toFixed(1) + '亿'
-      } else if (num >= 10000) {
-        return (num/10000).toFixed(1) + '万'
-      }
-    }
-    return {changeCount}
+    return {formatCount}
   },
   props: ['playlist']
 }
