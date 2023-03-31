@@ -1,45 +1,74 @@
 <template>
   <div class="player">
     <div class="left">
-      <img :src="playList[playListIndex].al.picUrl">
-      <div class="name">{{playList[playListIndex].al.name}}</div>
+      <div class="track_img">
+        <img :src="playList[playListIndex].al.picUrl">
+      </div>
+      <div class="info">
+        <div class="name">{{playList[playListIndex].name}}</div>
+        <div class="change">滑动切换下一首</div>
+      </div>
     </div>
     <div class="right">
       <div @click="play">
-        <svg class="icon" aria-hidden="true" v-show="pauseBtnShow">
-          <use xlink:href="#icon-bofang"></use>
-        </svg>
-        <svg class="icon" aria-hidden="true" v-show="!pauseBtnShow">
-          <use xlink:href="#icon-zanting"></use>
+        <svg class="icon" aria-hidden="true">
+          <use :xlink:href="playIcon"></use>
         </svg>
       </div>
       <svg class="icon" aria-hidden="true">
         <use xlink:href="#icon-playlist"></use>
       </svg>
     </div>
-    <audio ref="audio" :src="`https://music.163.com/song/media/outer/url?id=${playList[playListIndex].id}.mp3`"></audio>
+    <audio ref="myAudio" :src="`https://music.163.com/song/media/outer/url?id=${playList[playListIndex].id}.mp3`"></audio>
   </div>
 </template>
 <script>
-import { onMounted, ref } from 'vue'
-import { mapState, mapMutations } from 'vuex'
+import { ref, computed, onMounted, watch } from 'vue'
+import { mapState,useStore } from 'vuex'
 export default {
   name: "Player",
-  computed: {
-    ...mapState(['playList','playListIndex','pauseBtnShow'])
-  },
-  methods: {
-    ...mapMutations(['changePauseBtnShow']),
-    play() {
-      if(this.$refs.audio.paused) {
-        this.$refs.audio.play()
-        this.changePauseBtnShow(false)
+  setup() {
+    const store = useStore()
+    const myAudio = ref(null)
+    // 获取播放列表
+    const playList = computed(() => store.getters.playList)
+    // 获取播放列表下标
+    const playListIndex = computed(() => store.getters.playListIndex)
+    // 获取播放状态
+    const isPlayed = computed(() => store.getters.isPlayed)
+    // 获取歌曲Id
+    const trackId = computed(() => store.getters.trackId)
+
+    // 点击切换播放状态
+    const play = () => {
+      if(myAudio.value.paused) {
+        myAudio.value.play()
+        store.commit('changePlay',true)
       } else {
-        this.$refs.audio.pause()
-        this.changePauseBtnShow(true)
+        myAudio.value.pause()
+        store.commit('changePlay',false)
       }
-    },
+    }
+    // 播放器图标
+    let playIcon = computed(() => {
+      return isPlayed.value ? '#icon-zanting' : '#icon-bofang'
+    })
+
+    watch(trackId,(newValue, oldValue) => {
+      myAudio.value.autoplay = true
+      store.commit('changePlay',true)
+    })
+
+    return {
+      playList,
+      playListIndex,
+      isPlayed,
+      myAudio,
+      play,
+      playIcon
+    }
   }
+
 }
 </script>
 <style scoped lang="less">
@@ -57,17 +86,32 @@ export default {
   height: 100%;
   display: flex;
   align-items: center;
-  img {
-    width: 1rem;
-    height: 1rem;
-    border-radius: 50%;
-    margin: 0 .2rem;
+  .track_img {
+    width: 25%;
+    text-align: center;
+    vertical-align: middle;
+    img {
+      width: 1rem;
+      height: 1rem;
+      border-radius: 50%;
+    }
   }
-  .name {
-    margin-left: .1rem;
-    font-size: 16px;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  .info {
+    width: 75%;
+    padding-left: .1rem;
+    .change {
+      font-size: .2rem;
+      color: #666;
+    }
+    .name {
+      width: 100%;
+      white-space: nowrap;
+      font-size: 16px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: #666;
+      margin-top: .1rem;
+    }
   }
 }
 .right {

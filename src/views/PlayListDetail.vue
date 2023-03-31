@@ -33,7 +33,7 @@ export default {
       data.tracklist = res.data.playlist.tracks
       data.subscribedCount = formatCount(res.data.playlist.subscribedCount)
       data.trackCount = res.data.playlist.trackCount
-      console.log(data);
+      
       // 防止页面刷新丢失数据
       sessionStorage.setItem('playlist',JSON.stringify(data))
     })

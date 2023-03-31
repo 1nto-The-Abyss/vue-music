@@ -17,7 +17,7 @@
     </div>
     <ul v-for="(item,index) in tracklist">
       <li class="track">
-        <div class="left">
+        <div class="left" @click="playTrack(item,index)">
           <div class="order">{{index + 1}}</div>
           <div class="info">
             <!-- 歌名 -->
@@ -48,10 +48,19 @@
 <script>
 import { ref, onMounted, reactive, watch } from 'vue'
 import { _getPlayListItem } from '@/api/play'
+import { mapMutations, useStore } from 'vuex';
 
 export default {
   name: "TrackList",
   setup(props) {
+    const store = useStore()
+    const playTrack = (item,index) => {
+      // 传入当前歌单歌曲列表
+      store.commit('updatePlayList',props.tracklist)
+      // 播放当前点击的歌曲
+      store.commit('updatePlayListIndex',{id:item.id,index:index})
+    }
+    return {playTrack}
   },
   props: ['tracklist','subscribedCount','trackCount'],
 }
@@ -68,13 +77,14 @@ export default {
   justify-content: space-between;
   align-items: center;
   .left {
-    font-weight: 700;;
+    font-weight: 700;
     .icon {
       margin-right: .2rem;
     }
     .total {
+      margin-left: .1rem;
       font-weight: 400;
-      font-size: .12rem;
+      font-size: .24rem;
       color: #999;
     }
   }
@@ -89,6 +99,7 @@ export default {
   }
 }
 .track {
+  width: 100%;
   height: 1.2rem;
   padding: 0 .3rem;
   display: flex;
@@ -96,6 +107,7 @@ export default {
   border-bottom: 1px solid rgba(0,0,0,.1);
   .left{
     display: flex;
+    flex: 1;
     .order {
       text-align: left;
       width: .3rem;
