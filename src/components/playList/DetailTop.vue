@@ -121,6 +121,7 @@ export default {
     position: relative;
     img {
       position: absolute;
+      right: .2rem;
       width: 2.4rem;
       height: 2.4rem;
       border-radius: .2rem;
@@ -129,7 +130,7 @@ export default {
       color: #fff;
       font-size: .2rem;
       position: absolute;
-      left: 1.6rem;
+      right: .3rem;
       top: .1rem;
     }
   }
