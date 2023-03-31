@@ -22,7 +22,7 @@ import { reactive, onMounted } from 'vue'
 import { _getPlayList } from '@/api/home'
 import formatCount from '@/hooks/formatCount'
 export default {
-  name: "PlayList",
+  name: "FoundPlayList",
   setup() {
     let list = reactive({
       data: []

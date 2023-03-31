@@ -7,7 +7,7 @@
     <!-- 功能列表 -->
     <feature-list></feature-list>
     <!-- 歌单列表 -->
-    <play-list></play-list>
+    <found-play-list></found-play-list>
   </div>
 </template>
 
@@ -15,14 +15,14 @@
 import TopNav from '@/components/home/TopNav.vue'
 import TopSwiper from '@/components/home/TopSwiper.vue'
 import FeatureList from '@/components/home/FeatureList.vue'
-import PlayList from '@/components/home/PlayList.vue'
+import FoundPlayList from '@/components/home/FoundPlayList.vue'
 export default {
   name: 'Home',
   components: {
     TopNav,
     TopSwiper,
     FeatureList,
-    PlayList
+    FoundPlayList
   }
 }
 </script>
