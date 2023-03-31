@@ -3,7 +3,8 @@ import {
   Swipe, 
   SwipeItem,
   Lazyload,
-  Icon 
+  Icon,
+  Popup  
 } from 'vant'
 
 const plugins = [
@@ -11,7 +12,8 @@ const plugins = [
   Swipe, 
   SwipeItem,
   Lazyload,
-  Icon
+  Icon,
+  Popup 
 ]
 export default function getVant(app) {
   plugins.forEach(item => {

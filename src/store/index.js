@@ -15,8 +15,9 @@ export default createStore({
       ar:[{name: "雁夜风"}]
     }], // 播放列表
     playListIndex: 0, // 歌单列表下标,默认为0
-    trackId: 1446137141, // 歌曲ID
-    isPlayed: false //播放状态
+    songId: 1446137141, // 歌曲ID
+    isPlayed: false, //播放状态
+    showSongDetail: false // 打开歌曲详情页
   },
   getters: {
     // 播放列表
@@ -28,12 +29,16 @@ export default createStore({
       return state.playListIndex
     },
     // 歌曲Id
-    trackId(state) {
-      return state.trackId
+    songId(state) {
+      return state.songId
     },
     // 播放状态
     isPlayed(state) {
       return state.isPlayed
+    },
+    // 打开歌曲详情页
+    showSongDetail(state) {
+      return state.showSongDetail
     }
   },
   mutations: {
@@ -42,14 +47,19 @@ export default createStore({
       state.isPlayed = value
     },
     // 导入播放列表
-    updatePlayList(state,value) {
+    updatePlayList(state, value) {
       state.playList = value
       console.log(state.playList);
     },
     // 更新播放列表下标和歌曲Id
     updatePlayListIndex(state, value) {
       state.playListIndex = value.index
-      state.trackId = value.id
+      state.songId = value.id
+    },
+    // 歌曲详情页开关
+    updateShowTSongDetail(state) {
+      console.log("1111");
+      state.showSongDetail = !state.showSongDetail
     }
   },
   actions: {

@@ -1,12 +1,12 @@
 <template>
-  <div v-if="tracklist" class="tarcklist">
+  <div v-if="songlist" class="tarcklist">
     <div class="top">
       <div class="left">
         <svg class="icon" aria-hidden="true">
             <use xlink:href="#icon-bofang"></use>
         </svg>
         <span>播放全部</span>
-        <span class="total">(共{{trackCount}}首)</span>
+        <span class="total">(共{{songCount}}首)</span>
       </div>
       <div class="right">
         <van-button round>
@@ -15,9 +15,9 @@
         </van-button>
       </div>
     </div>
-    <ul v-for="(item,index) in tracklist">
-      <li class="track">
-        <div class="left" @click="playTrack(item,index)">
+    <ul v-for="(item,index) in songlist">
+      <li class="song">
+        <div class="left" @click="playSong(item,index)">
           <div class="order">{{index + 1}}</div>
           <div class="info">
             <!-- 歌名 -->
@@ -51,18 +51,18 @@ import { _getPlayListItem } from '@/api/play'
 import { mapMutations, useStore } from 'vuex';
 
 export default {
-  name: "TrackList",
+  name: "songlist",
   setup(props) {
     const store = useStore()
-    const playTrack = (item,index) => {
+    const playSong = (item,index) => {
       // 传入当前歌单歌曲列表
-      store.commit('updatePlayList',props.tracklist)
+      store.commit('updatePlayList',props.songlist)
       // 播放当前点击的歌曲
       store.commit('updatePlayListIndex',{id:item.id,index:index})
     }
-    return {playTrack}
+    return {playSong}
   },
-  props: ['tracklist','subscribedCount','trackCount'],
+  props: ['songlist','subscribedCount','songCount'],
 }
 </script>
 <style scoped lang="less">
@@ -98,7 +98,7 @@ export default {
     }
   }
 }
-.track {
+.song {
   width: 100%;
   height: 1.2rem;
   padding: 0 .3rem;

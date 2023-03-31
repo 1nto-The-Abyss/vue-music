@@ -1,12 +1,12 @@
 <template>
   <div class="player">
     <div class="left">
-      <div class="track_img">
+      <div class="song_img">
         <img :src="playList[playListIndex].al.picUrl">
       </div>
-      <div class="info">
+      <div class="info" @click="updateShowTSongDetail">
         <div class="name">{{playList[playListIndex].name}}</div>
-        <div class="change">滑动切换下一首</div>
+        <!-- <div class="change">滑动切换下一首</div> -->
       </div>
     </div>
     <div class="right">
@@ -24,7 +24,7 @@
 </template>
 <script>
 import { ref, computed, onMounted, watch } from 'vue'
-import { mapState,useStore } from 'vuex'
+import { mapState,useStore, mapMutations } from 'vuex'
 export default {
   name: "Player",
   setup() {
@@ -37,7 +37,7 @@ export default {
     // 获取播放状态
     const isPlayed = computed(() => store.getters.isPlayed)
     // 获取歌曲Id
-    const trackId = computed(() => store.getters.trackId)
+    const songId = computed(() => store.getters.songId)
 
     // 点击切换播放状态
     const play = () => {
@@ -49,15 +49,20 @@ export default {
         store.commit('changePlay',false)
       }
     }
+
     // 播放器图标
-    let playIcon = computed(() => {
+    const playIcon = computed(() => {
       return isPlayed.value ? '#icon-zanting' : '#icon-bofang'
     })
 
-    watch(trackId,(newValue, oldValue) => {
+    // 监听歌曲Id，发生改变时播放歌曲
+    watch(songId,(newValue, oldValue) => {
       myAudio.value.autoplay = true
       store.commit('changePlay',true)
     })
+
+    // 开关歌曲详情页
+    const updateShowTSongDetail = mapMutations(['updateShowTSongDetail'])
 
     return {
       playList,
@@ -65,7 +70,8 @@ export default {
       isPlayed,
       myAudio,
       play,
-      playIcon
+      playIcon,
+      ...updateShowTSongDetail
     }
   }
 
@@ -86,7 +92,7 @@ export default {
   height: 100%;
   display: flex;
   align-items: center;
-  .track_img {
+  .song_img {
     width: 25%;
     text-align: center;
     vertical-align: middle;
