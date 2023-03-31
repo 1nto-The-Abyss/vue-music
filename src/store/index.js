@@ -4,20 +4,22 @@ export default createStore({
   state: {
     playList: [{
       al: {
-        id: 162357395,
-        name: "南柯一梦",
-        pic: 109951168491403340,
-        picUrl: "http://p4.music.126.net/SswJS5DazMUuGwlthgHRmg==/109951168491403346.jpg",
-        pic_str: "109951168491403346"
+        id: 52208,
+        name: "覚醒、そして降临",
+        pic: 4442026976217718,
+        picUrl: "http://p3.music.126.net/SfniCe5LsmFJeviAjEAlpw==/4442026976217718.jpg"
       },
-      id: 1446137141,
-      name: "梦境旅社",
-      ar:[{name: "雁夜风"}]
+      id: 557912,
+      name: "次回予告",
+      ar:[{ 
+        name: "arlie Ray",
+        id:16077
+      }]
     }], // 播放列表
     playListIndex: 0, // 歌单列表下标,默认为0
-    songId: 1446137141, // 歌曲ID
+    songId: 557912, // 歌曲ID
     isPlayed: false, //播放状态
-    showSongDetail: false // 打开歌曲详情页
+    showSongDetail: true // 打开歌曲详情页
   },
   getters: {
     // 播放列表
@@ -57,8 +59,7 @@ export default createStore({
       state.songId = value.id
     },
     // 歌曲详情页开关
-    updateShowTSongDetail(state) {
-      console.log("1111");
+    updateShowSongDetail(state) {
       state.showSongDetail = !state.showSongDetail
     }
   },

@@ -116,6 +116,7 @@ export default {
   padding: .3rem;
   display: flex;
   justify-content: space-between;
+  margin-bottom: .3rem;
   .left {
     width: 40%;
     position: relative;

@@ -4,9 +4,9 @@
       <div class="song_img">
         <img :src="playList[playListIndex].al.picUrl">
       </div>
-      <div class="info" @click="updateShowTSongDetail">
+      <div class="info" @click="updateShowSongDetail">
         <div class="name">{{playList[playListIndex].name}}</div>
-        <!-- <div class="change">滑动切换下一首</div> -->
+        <div class="change">滑动切换下一首</div>
       </div>
     </div>
     <div class="right">
@@ -21,12 +21,21 @@
     </div>
     <audio ref="myAudio" :src="`https://music.163.com/song/media/outer/url?id=${playList[playListIndex].id}.mp3`"></audio>
   </div>
+  <van-popup v-model:show="showSongDetail" :style="{ width: '100%', height: '100%', maxWidth: '100%'}" position="bottom">
+    <song-detail 
+      :songList="{playList:playList,playListIndex:playListIndex}"
+      :playIcon="playIcon"
+      :play="play"
+    ></song-detail>
+  </van-popup>
 </template>
 <script>
 import { ref, computed, onMounted, watch } from 'vue'
 import { mapState,useStore, mapMutations } from 'vuex'
+import SongDetail from '@/components/songDetail/SongDetail'
 export default {
   name: "Player",
+  components: { SongDetail },
   setup() {
     const store = useStore()
     const myAudio = ref(null)
@@ -38,6 +47,8 @@ export default {
     const isPlayed = computed(() => store.getters.isPlayed)
     // 获取歌曲Id
     const songId = computed(() => store.getters.songId)
+    // 打开歌曲详情页
+    const showSongDetail = computed(() => store.getters.showSongDetail)
 
     // 点击切换播放状态
     const play = () => {
@@ -62,7 +73,7 @@ export default {
     })
 
     // 开关歌曲详情页
-    const updateShowTSongDetail = mapMutations(['updateShowTSongDetail'])
+    const updateShowSongDetail = mapMutations(['updateShowSongDetail'])
 
     return {
       playList,
@@ -71,7 +82,8 @@ export default {
       myAudio,
       play,
       playIcon,
-      ...updateShowTSongDetail
+      ...updateShowSongDetail,
+      showSongDetail
     }
   }
 
