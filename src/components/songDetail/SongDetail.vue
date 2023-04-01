@@ -18,13 +18,17 @@
       </div>
     </div>
     <div class="center">
-      <img src="@/assets/img/arm.png" alt="" class="arm">
+      <img src="@/assets/img/arm.png" 
+        :style="{transform:isPlayed?'rotate(0deg)':'rotate(-20deg)'}" 
+        class="arm"
+      >
       <img src="@/assets/img/record.png" alt="" class="record">
       <img 
         :src="data.songInfo.al.picUrl"
         v-if="data.songInfo.al" 
         class="cover"
         @click="play"
+        :style="{animationPlayState:isPlayed?'running':'paused'}"
       >
     </div>
     <div class="bottom">
@@ -45,7 +49,9 @@
           <use xlink:href="#icon-gengduo"></use>
         </svg>
       </div>
-      <div class="progress"></div>
+      <div class="progress">
+        <audio src="" controls></audio>
+      </div>
       <div class="broadcast">
         <svg class="icon" aria-hidden="true">
           <use xlink:href="#icon-xunhuan"></use>
@@ -53,7 +59,12 @@
         <svg class="icon" aria-hidden="true">
           <use xlink:href="#icon-shangyishou"></use>
         </svg>
-        <svg class="icon" aria-hidden="true" :style="{width:'.8rem',height:'.8rem'}">
+        <svg 
+          class="icon" 
+          aria-hidden="true" 
+          :style="{width:'.8rem',height:'.8rem'}"
+          @click="play"
+        >
           <use :xlink:href="playIcon"></use>
         </svg>
         <svg class="icon" aria-hidden="true">
@@ -79,18 +90,16 @@ export default {
     const data = reactive({
       songInfo: {}
     })
-    const play = () => {}
     const updateShowSongDetail = mapMutations(['updateShowSongDetail'])
     onMounted(() => {
       data.songInfo = props.songList.playList[props.songList.playListIndex]
     })
     return {
       data,
-      play,
       ...updateShowSongDetail
     }
   },
-  props:[ 'songList', 'playIcon', 'play' ]
+  props:[ 'songList', 'isPlayed', 'play', 'playIcon' ]
 }
 </script>
 <style scoped lang="less">
@@ -118,7 +127,7 @@ export default {
     width: 10%;
     display: flex;
     .van-icon {
-      font-size: 28px;
+      font-size: .56rem;
       &::before {
         vertical-align: -25%;
       }
@@ -133,12 +142,12 @@ export default {
     flex-direction: column;
     justify-content: center;
     .name {
-      font-size: 18px;
+      font-size: .36rem;
       width: 100%;
       white-space: nowrap;
     }
     .author {
-      font-size: 10px;
+      font-size: .2rem;
     }
   }
   .right {
@@ -164,14 +173,14 @@ export default {
     width: 1.8rem;
     height: 3rem;
     position: absolute;
-    top: -.4rem;
-    left: 50%;
+    top: -.25rem;
+    left: 44%;
     z-index: 1;
-    transform: rotate(-13deg);
-    // transition: all 2s;
+    transform: rotate(-20deg);
+    transform-origin: 10% 10%; // 旋转点
+    transition: all 1.5s;
     &_active {
       transform: rotate(0deg);
-      transition: all 2s;
     }
   }
   .record {
@@ -189,6 +198,10 @@ export default {
     animation-name: cover;
     animation-duration: 60s;
     animation-iteration-count: infinite;
+    // animation-play-state: paused;
+    &_active {
+
+    }
   }
   @keyframes cover {
     0% {

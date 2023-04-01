@@ -24,6 +24,7 @@
   <van-popup v-model:show="showSongDetail" :style="{ width: '100%', height: '100%', maxWidth: '100%'}" position="bottom">
     <song-detail 
       :songList="{playList:playList,playListIndex:playListIndex}"
+      :isPlayed="isPlayed"
       :playIcon="playIcon"
       :play="play"
     ></song-detail>
