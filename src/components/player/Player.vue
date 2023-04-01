@@ -52,13 +52,14 @@ export default {
     const showSongDetail = computed(() => store.getters.showSongDetail)
 
     // 点击切换播放状态
+    const changePlay = (value) => store.commit('changePlay',value)
     const play = () => {
       if(myAudio.value.paused) {
-        myAudio.value.play()
-        store.commit('changePlay',true)
+        myAudio.value.play(true)
+        changePlay(true)
       } else {
         myAudio.value.pause()
-        store.commit('changePlay',false)
+        changePlay(false)
       }
     }
 
@@ -73,9 +74,6 @@ export default {
       store.commit('changePlay',true)
     })
 
-    // 开关歌曲详情页
-    const updateShowSongDetail = mapMutations(['updateShowSongDetail'])
-
     return {
       playList,
       playListIndex,
@@ -83,8 +81,9 @@ export default {
       myAudio,
       play,
       playIcon,
-      ...updateShowSongDetail,
-      showSongDetail
+      showSongDetail,
+      // 开关歌曲详情页
+      updateShowSongDetail: () => store.commit('updateShowSongDetail'),
     }
   }
 
