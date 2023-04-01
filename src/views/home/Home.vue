@@ -12,10 +12,10 @@
 </template>
 
 <script>
-import TopNav from '@/components/home/TopNav.vue'
-import TopSwiper from '@/components/home/TopSwiper.vue'
-import FeatureList from '@/components/home/FeatureList.vue'
-import FoundPlayList from '@/components/home/FoundPlayList.vue'
+import TopNav from './childComponents/TopNav.vue'
+import TopSwiper from './childComponents/TopSwiper.vue'
+import FeatureList from './childComponents/FeatureList.vue'
+import FoundPlayList from './childComponents/FoundPlayList.vue'
 export default {
   name: 'Home',
   components: {

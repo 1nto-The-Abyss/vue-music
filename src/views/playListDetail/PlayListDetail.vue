@@ -10,8 +10,8 @@
 import { useRoute } from 'vue-router'
 import { onBeforeMount, reactive } from 'vue'
 import { _getPlayListDetail } from '@/api/play'
-import DetailTop from "@/components/playList/DetailTop"
-import songlist from "@/components/playList/SongList"
+import DetailTop from "./childComponents//DetailTop.vue"
+import songlist from "./childComponents//SongList.vue"
 import formatCount from '@/hooks/formatCount'
 export default {
   name: "PlayListDetail",

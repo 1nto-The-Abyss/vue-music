@@ -4,13 +4,16 @@
 </template>
 <script>
 import Player from "@/components/player/Player.vue"
-import { mapState } from 'vuex';
+import { computed, onMounted, ref } from 'vue'
+import { mapState, useStore } from 'vuex';
 export default {
   components: {
     Player
   },
-  computed: {
-    ...mapState(['showPlayer'])
+  setup() {
+    const store = useStore()
+    const showPlayer = computed(() => store.state.showPlayer)
+    return { showPlayer }
   }
 }
 </script>

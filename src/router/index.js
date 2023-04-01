@@ -1,10 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-const Home = () => import ('../views/Home.vue')
+const Home = () => import ('../views/home/Home.vue')
 // 歌单详情页
-const PlayListDetail = () => import ('../views/PlayListDetail.vue')
+const PlayListDetail = () => import ('../views/playListDetail/PlayListDetail.vue')
 // 歌曲播放页
-const SongDetail = () => import('../views/SongDetail.vue')
+const SongDetail = () => import('../views/songDetail/SongDetail.vue')
 
 const routes = [
   {
