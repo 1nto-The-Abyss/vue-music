@@ -3,6 +3,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 const Home = () => import ('../views/Home.vue')
 // 歌单详情页
 const PlayListDetail = () => import ('../views/PlayListDetail.vue')
+// 歌曲播放页
+const SongDetail = () => import('../views/SongDetail.vue')
 
 const routes = [
   {
@@ -14,6 +16,11 @@ const routes = [
     path: '/PlayListDetail',
     name: 'PlayListDetail',
     component: PlayListDetail
+  },
+  {
+    path: '/SongDetail',
+    name: 'SongDetail',
+    component: SongDetail
   }
 ]
 

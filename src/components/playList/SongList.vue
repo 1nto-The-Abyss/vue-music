@@ -126,6 +126,9 @@ export default {
       .author {
         font-size: .16rem;
         color: #999;
+        span {
+          margin-left: .1rem;
+        }
       }
     }
   }

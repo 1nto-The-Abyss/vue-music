@@ -1,12 +1,16 @@
 <template>
   <router-view/>
-  <Player></Player>
+  <Player v-show="showPlayer"></Player>
 </template>
 <script>
 import Player from "@/components/player/Player.vue"
+import { mapState } from 'vuex';
 export default {
   components: {
     Player
+  },
+  computed: {
+    ...mapState(['showPlayer'])
   }
 }
 </script>
