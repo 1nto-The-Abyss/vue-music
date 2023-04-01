@@ -51,7 +51,7 @@ import { _getPlayListItem } from '@/api/play'
 import { mapMutations, useStore } from 'vuex';
 
 export default {
-  name: "songlist",
+  name: "SongList",
   setup(props) {
     const store = useStore()
     const playSong = (item,index) => {
@@ -127,7 +127,7 @@ export default {
         font-size: .16rem;
         color: #999;
         span {
-          margin-left: .1rem;
+          margin-right: .1rem;
         }
       }
     }

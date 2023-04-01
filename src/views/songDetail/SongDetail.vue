@@ -33,55 +33,13 @@
           :style="{animationPlayState:isPlayed?'running':'paused'}"
         >
       </div>
+      <!-- 歌词 -->
       <div class="lyric" v-show="showLrc" @click="showLrc = !showLrc">
-        歌词歌词
-        {{lyric}}
+        <Lyric :lyric="lyric"></Lyric>
       </div>
     </div>
-    <div class="bottom">
-      <div class="action">
-        <svg class="icon" aria-hidden="true">
-          <use xlink:href="#icon-xihuan"></use>
-        </svg>
-        <svg class="icon" aria-hidden="true">
-          <use xlink:href="#icon-laiyuan"></use>
-        </svg>
-        <svg class="icon" aria-hidden="true">
-          <use xlink:href="#icon-yinyue"></use>
-        </svg>
-        <svg class="icon" aria-hidden="true">
-          <use xlink:href="#icon-pinglun"></use>
-        </svg>
-        <svg class="icon" aria-hidden="true">
-          <use xlink:href="#icon-gengduo"></use>
-        </svg>
-      </div>
-      <div class="progress">
-        <audio src="" controls></audio>
-      </div>
-      <div class="broadcast">
-        <svg class="icon" aria-hidden="true">
-          <use xlink:href="#icon-xunhuan"></use>
-        </svg>
-        <svg class="icon" aria-hidden="true">
-          <use xlink:href="#icon-shangyishou"></use>
-        </svg>
-        <svg 
-          class="icon" 
-          aria-hidden="true" 
-          :style="{width:'.8rem',height:'.8rem'}"
-          @click="play"
-        >
-          <use :xlink:href="playIcon"></use>
-        </svg>
-        <svg class="icon" aria-hidden="true">
-          <use xlink:href="#icon-xiayishou"></use>
-        </svg>
-        <svg class="icon" aria-hidden="true">
-          <use xlink:href="#icon-playlist"></use>
-        </svg>
-      </div>
-    </div>
+    <!-- 底部控制组件 -->
+    <control :isPlayed="isPlayed"></control>
   </div>
 </template>
 <script>
@@ -90,9 +48,15 @@ import { useStore } from 'vuex'
 // 引入跑马灯组件
 import { Vue3Marquee } from 'vue3-marquee'
 import 'vue3-marquee/dist/style.css'
+import Control from './childComponents/Control'
+import Lyric from './childComponents/Lyric.vue'
 export default {
   name: "SongDetail",
-  components: { Vue3Marquee },
+  components: { 
+    Vue3Marquee,
+    Control,
+    Lyric 
+  },
   setup(props) {
     const store = useStore()
     const data = reactive({
@@ -107,7 +71,7 @@ export default {
     // 获取歌曲Id
     const songId = computed(() => store.getters.songId)
     // 展示歌词
-    const showLrc = ref(false)
+    const showLrc = ref(true)
     // 获取歌词
     const lyric = computed(() => store.getters.lyric)
 
@@ -123,17 +87,6 @@ export default {
       // data.songInfo = playList[playListIndex]
       // store.dispatch('getLyric',songId)
     },{immediate:true})
-
-    // 播放器图标
-    const playIcon = computed(() => {
-      return isPlayed.value ? '#icon-zanting' : '#icon-bofang'
-    })
-
-    // 点击切换播放状态
-    const changePlay = (value) => store.commit('changePlay',value)
-    const play = () => {
-      changePlay(!isPlayed.value)
-    }
 
 
     onMounted(() => {
@@ -154,9 +107,7 @@ export default {
       isPlayed,
       songId,
       lyric,
-      getSongInfo,
-      playIcon,
-      play
+      getSongInfo
     }
   }
 }
@@ -279,30 +230,7 @@ export default {
   .lyric {
     width: 100%;
     height: 100%;
-  }
-}
-.bottom {
-  width: 100%;
-  height: 3rem;
-  svg{
-    fill: #fff;
-  }
-  .action {
-    display: flex;
-    justify-content: space-around;
-    .icon {
-      width: .6rem;
-      height: .6rem;
-    }
-  }
-  .center {}
-  .broadcast {
-    display: flex;
-    justify-content: space-around;
-    .icon {
-      width: .6rem;
-      height: .6rem;
-    }
+    overflow: scroll;
   }
 }
 </style>

@@ -55,7 +55,9 @@ export default {
     watch(songId,(newValue, oldValue) => {
       myAudio.value.autoplay = true
       store.commit('changePlay',true)
+      store.commit('getAudio',myAudio.value)
     })
+
     // 监听播放状态暂停或播放
     watch(isPlayed,(newValue, oldValue) => {
       if(isPlayed.value) {
@@ -63,6 +65,10 @@ export default {
       } else {
         myAudio.value.pause()
       }
+    })
+
+    onMounted(() => {
+      store.commit('getAudio',myAudio.value)
     })
     return {
       playList,
