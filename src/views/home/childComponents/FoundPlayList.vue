@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div class="found">
     <div class="title">
       <div class="left">发现好歌单</div>
-      <van-button type="default" round >查看更多</van-button>
+      <!-- <van-button type="default" round >查看更多</van-button> -->
     </div>
     <div class="box">
       <div class="list">
@@ -19,7 +19,7 @@
 </template>
 <script>
 import { reactive, onMounted } from 'vue'
-import { _getPlayList } from '@/api/home'
+import { _getPlayList, _getSong } from '@/api/home'
 import formatCount from '@/hooks/formatCount'
 export default {
   name: "FoundPlayList",
@@ -40,6 +40,9 @@ export default {
 }
 </script>
 <style scoped lang="less">
+.found {
+  margin-bottom: .2rem;
+}
 .title {
   display: flex;
   justify-content: space-between;

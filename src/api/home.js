@@ -12,6 +12,14 @@ export function _getBanner() {
 export function _getPlayList() {
   return request({
     methods: "get",
-    url: '/personalized?limit=10'
+    url: '/personalized'
+  })
+}
+
+// 首页-发现好音乐
+export function _getSong() {
+  return request({
+    methods: 'get',
+    url: '/personalized/newsong?limit=9'
   })
 }

@@ -20,6 +20,7 @@ export function request(config) {
       return data;
   }, err => {
       console.log(err);
+      throw err
   });
   // 发送真正的网络请求
   return instance(config);

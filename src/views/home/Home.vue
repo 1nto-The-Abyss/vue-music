@@ -8,6 +8,9 @@
     <feature-list></feature-list>
     <!-- 歌单列表 -->
     <found-play-list></found-play-list>
+    <!-- 发现音乐 -->
+    <found-song></found-song>
+    <!-- 发现视频 -->
   </div>
 </template>
 
@@ -16,13 +19,22 @@ import TopNav from './childComponents/TopNav.vue'
 import TopSwiper from './childComponents/TopSwiper.vue'
 import FeatureList from './childComponents/FeatureList.vue'
 import FoundPlayList from './childComponents/FoundPlayList.vue'
+import FoundSong from './childComponents/FoundSong.vue'
+import FoundVideo from './childComponents/FoundVideo.vue'
 export default {
   name: 'Home',
   components: {
     TopNav,
     TopSwiper,
     FeatureList,
-    FoundPlayList
+    FoundPlayList,
+    FoundSong
   }
 }
 </script>
+<style lang="less" scoped>
+.home {
+  padding-bottom: 2rem;
+}
+</style>
+
