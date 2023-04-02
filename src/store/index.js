@@ -5,20 +5,20 @@ export default createStore({
   state: {
     playList: [{
       al: {
-        id: 52208,
-        name: "覚醒、そして降临",
-        pic: 4442026976217718,
-        picUrl: "http://p3.music.126.net/SfniCe5LsmFJeviAjEAlpw==/4442026976217718.jpg"
+        id: 2631601,
+        name: "Flower",
+        pic: 5752644836589495,
+        picUrl: "http://p4.music.126.net/sK2Rsvagw2iHFG6_jTqb3Q==/5752644836589495.jpg"
       },
-      id: 557912,
-      name: "次回予告",
+      id: 27548281,// 歌曲ID
+      name: "歌に形はないけれど",
       ar:[{ 
-        name: "arlie Ray",
-        id:16077
+        name: "花たん",
+        id:16523
       }]
     }], // 播放列表
     playListIndex: 0, // 歌单列表下标,默认为0
-    songId: 557912, // 歌曲ID
+    songId: 27548281, // 歌曲ID
     lyric:'',// 歌词
     isPlayed: false, //播放状态
     showPlayer: true, //是否显示播放器

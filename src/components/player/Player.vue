@@ -6,7 +6,9 @@
       </div>
       <div class="info" @click="$router.push('/SongDetail')">
         <div class="name">{{playList[playListIndex].name}}</div>
-        <div class="change">滑动切换下一首</div>
+        <div class="author">
+          <span v-for="item in playList[playListIndex].ar">{{item.name}}</span>
+        </div>
       </div>
     </div>
     <div class="right">
@@ -111,9 +113,12 @@ export default {
   .info {
     width: 75%;
     padding-left: .1rem;
-    .change {
+    .author {
       font-size: .2rem;
       color: #666;
+      span {
+        margin-right: .1rem
+      }
     }
     .name {
       width: 100%;

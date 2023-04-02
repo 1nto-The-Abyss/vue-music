@@ -1,6 +1,6 @@
 <template>
   <div class="lyric_box">
-    <p v-for="item in lyricArr">
+    <p v-for="item in lyricArr" class="item">
       {{item.word}}
     </p>
   </div>
@@ -24,9 +24,9 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-  p {
+  .item {
     color: #fff;
-    font-size: .36rem;
+    font-size: .32rem;
     margin: .2rem 0;
   }
 }
