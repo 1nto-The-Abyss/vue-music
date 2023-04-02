@@ -1,61 +1,34 @@
 <template>
   <div class="song_detail" v-if="data.songInfo">
+    <!-- 背景图 -->
     <img :src="data.songInfo.al.picUrl" alt="" class="bg" v-if="data.songInfo.al">
-    <div class="top">
-      <div class="left" @click="$router.go(-1)">
-        <van-icon name="arrow-down"/>
-      </div>
-      <div class="center">
-        <Vue3Marquee>
-          <div class="name" v-if="data.songInfo.al">{{data.songInfo.name}}</div>
-        </Vue3Marquee>
-        <div class="author">
-          <span v-for="item in data.songInfo.ar">{{item.name}}</span>
-        </div>
-      </div>
-      <div class="right">
-        <svg class="icon" aria-hidden="true">
-          <use xlink:href="#icon-fenxiang"></use>
-        </svg>
-      </div>
-    </div>
+    <!-- 顶部组件 -->
+    <Top :info="data.songInfo"></Top>
     <div class="center">
-      <div class="record" v-show="!showLrc" @click="showLrc = !showLrc">
-        <img src="@/assets/img/arm.png" 
-          :style="{transform:isPlayed?'rotate(0deg)':'rotate(-20deg)'}" 
-          class="arm"
-        >
-        <img src="@/assets/img/record.png" alt="" class="record_img">
-        <img 
-          :src="data.songInfo.al.picUrl"
-          v-if="data.songInfo.al" 
-          class="cover"
-          :style="{animationPlayState:isPlayed?'running':'paused'}"
-        >
-      </div>
-      <!-- 歌词 -->
-      <div class="lyric" v-show="showLrc" @click="showLrc = !showLrc">
-        <Lyric :lyric="lyric"></Lyric>
-      </div>
+      <!-- 唱片组件 -->
+      <Record :isPlayed="isPlayed" :al="data.songInfo.al" v-show="!showLrc" @click="showLrc=!showLrc"></Record>
+      <!-- 歌词组件 -->
+      <Lyric v-show="showLrc" @click="showLrc=!showLrc"></Lyric>
     </div>
     <!-- 底部控制组件 -->
-    <control :isPlayed="isPlayed"></control>
+    <Control :isPlayed="isPlayed"></Control>
   </div>
 </template>
 <script>
 import { ref, reactive, computed, watch, onMounted, onBeforeUnmount } from 'vue'
 import { useStore } from 'vuex'
-// 引入跑马灯组件
-import { Vue3Marquee } from 'vue3-marquee'
-import 'vue3-marquee/dist/style.css'
+
+import Top from './childComponents/Top'
+import Record from './childComponents/Record'
 import Control from './childComponents/Control'
-import Lyric from './childComponents/Lyric.vue'
+import Lyric from './childComponents/Lyric'
 export default {
   name: "SongDetail",
   components: { 
-    Vue3Marquee,
+    Top,
     Control,
-    Lyric 
+    Lyric,
+    Record 
   },
   setup(props) {
     const store = useStore()
@@ -72,9 +45,6 @@ export default {
     const songId = computed(() => store.getters.songId)
     // 展示歌词
     const showLrc = ref(true)
-    // 获取歌词
-    const lyric = computed(() => store.getters.lyric)
-
 
     // 获取歌曲信息
     function getSongInfo(songId, playList, playListIndex) {
@@ -106,7 +76,6 @@ export default {
       playListIndex,
       isPlayed,
       songId,
-      lyric,
       getSongInfo
     }
   }
@@ -129,109 +98,9 @@ export default {
     filter: blur(.4rem)
   }
 }
-.top {
-  width: 100%;
-  height: 1.6rem;
-  display: flex;
-  padding: 0 .4rem;
-  align-items: center;
-  color: #fff;
-  .left {
-    width: 10%;
-    display: flex;
-    .van-icon {
-      font-size: .56rem;
-      &::before {
-        vertical-align: -25%;
-      }
-      margin-right: .2rem;
-    }
-  }
-  .center {
-    width: 80%;
-    height: 100%;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    .name {
-      font-size: .36rem;
-      width: 100%;
-      white-space: nowrap;
-    }
-    .author {
-      font-size: .2rem;
-      span {
-        margin-right: .1rem;
-      }
-    }
-  }
-  .right {
-    width: 10%;
-    text-align: right;
-    .icon {
-      fill: #fff;
-      width: .48rem;
-      height: .48rem;
-    }
-  }
-}
 .center {
   width: 100%;
   flex: 1;
   overflow: hidden;
-  .record {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    .arm {
-      width: 1.8rem;
-      height: 3rem;
-      position: absolute;
-      top: -.25rem;
-      left: 44%;
-      z-index: 1;
-      transform: rotate(-20deg);
-      transform-origin: 10% 10%; // 旋转点
-      transition: all 1.5s;
-      &_active {
-        transform: rotate(0deg);
-      }
-    }
-    .record_img {
-      width: 5rem;
-      height: 5rem;
-      position: absolute;
-      top: 1.6rem;
-    }
-    .cover {
-      position: absolute;
-      top: 2.5rem;
-      width: 3.1rem;
-      height: 3.1rem;
-      border-radius: 50%;
-      animation-name: cover;
-      animation-duration: 60s;
-      animation-iteration-count: infinite;
-    }
-    @keyframes cover {
-      0% {
-        transform: rotate(0deg)
-      }
-      100% {
-        transform: rotate(360deg)
-      }
-    }
-  }
-  .lyric {
-    width: 100%;
-    height: 100%;
-    overflow: scroll;
-    padding-top: 4rem;
-  }
 }
 </style>
