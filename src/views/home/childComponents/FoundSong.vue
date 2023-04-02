@@ -42,6 +42,7 @@ export default {
         item.song.id = item.id
         item.song.ar = item.song.artists
         item.song.al = item.song.album
+        item.dt = item.duration
         return item.song
       })
       for(let index = 0; index < list.playList.length; index = index+3) {

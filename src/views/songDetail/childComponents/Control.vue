@@ -1,5 +1,5 @@
 <template>
-  <div class="control">
+  <div class="control" v-if="songInfo">
     <!-- 喜欢、评论、留言、分享 -->
     <div class="action">
       <svg class="icon" aria-hidden="true">
@@ -59,34 +59,49 @@
   </div>
 </template>
 <script>
-import{ computed, ref } from 'vue'
+import{ computed, ref, onMounted } from 'vue'
 import { useStore } from 'vuex';
 export default {
   name: "Control",
   setup(props) {
     const store = useStore()
-    // 播放器当前时间
-    const currentTime = ref("00:00")
     // 播放器总共时间
-    const totalTime = ref("00:00")
+    let totalTime = ref(0)
     // 播放器进度
-    const currentRate = ref(10)
+    let currentRate = ref(10)
+
+    // 获取播放器信息
+    const audio = computed(() => store.getters.audio)
+    // 获取当前时间
+    const currentTime = computed(() => {
+      const time = store.getters.currentTime
+      return formateTime(store.getters.currentTime)
+    })
+
     // 播放器图标
     const playIcon = computed(() => {
       return props.isPlayed ? '#icon-zanting' : '#icon-bofang'
     })
 
     // 点击切换播放状态
-    const changePlay = (value) => store.commit('changePlay',value)
     const play = () => {
-      console.log(props.isPlayed);
-      changePlay(!props.isPlayed)
+      store.commit('changePlay',!props.isPlayed)
     }
 
     // 滑动滑块
     const changeSlider = () => {
 
     }
+    // 格式化时间 从秒数转换成00:12这种
+    const formateTime = (time) => {
+      const min = String(Math.floor(time/60)).padStart(2, '0')
+      const sces = String(Math.floor(time%60)).padStart(2, '0')
+      return min + ':' + sces
+    }
+    onMounted(() => {
+      totalTime = props.songInfo.dt
+      console.log(props.songInfo.dt,props.songInfo);
+    })
     return {
       currentTime,
       totalTime,
@@ -96,7 +111,7 @@ export default {
       playIcon
     }
   },
-  props: ['isPlayed']
+  props: ['isPlayed', 'songInfo']
 }
 </script>
 <style scoped lang="less">
@@ -119,6 +134,7 @@ export default {
   }
   .progress {
     display: flex;
+    align-items: center;
     .custom-button {
       width: .2rem;
       height: .2rem;
@@ -126,11 +142,9 @@ export default {
       background-color: #d43c33;
     }
     .time {
-      width: 20%;
+      width: 30%;
       text-align: center;
       color: #fff;
-      position: relative;
-      bottom: .1rem;
     }
   }
   .broadcast {

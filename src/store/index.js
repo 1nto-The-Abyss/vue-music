@@ -15,7 +15,8 @@ export default createStore({
       ar:[{ 
         name: "花たん",
         id:16523
-      }]
+      }],
+      dt: 329.952653 // 歌曲长度
     }], // 播放列表
     playListIndex: 0, // 歌单列表下标,默认为0
     songId: 27548281, // 歌曲ID
@@ -23,6 +24,7 @@ export default createStore({
     isPlayed: false, //播放状态
     showPlayer: true, //是否显示播放器
     audio: {}, // 播放器属性
+    currentTime: "", // 当前时间
   },
   getters: {
     // 播放列表
@@ -48,8 +50,10 @@ export default createStore({
       let lyricArr= []
       arr.forEach((item) => {
         let arrItem = item.split(']')
+        const time = arrItem[0].slice(1).split(':')
         lyricArr.push({
-          time: arrItem[0].slice(1),
+          // 时间转换成秒数
+          time: parseInt(time[0])*60 + parseInt(time[1]),
           word: arrItem[1]
         })
       })
@@ -60,8 +64,13 @@ export default createStore({
     showPlayer(state) {
       return state.showPlayer
     },
+    // 播放器信息
     audio(state) {
       return state.audio
+    },
+    // 当前时间
+    currentTime(state) {
+      return state.currentTime
     }
   },
   mutations: {
@@ -90,6 +99,10 @@ export default createStore({
     // 获取播放器属性
     getAudio(state, value) {
       state.audio = value
+    },
+    // 更新当前时间
+    updateCurrentTime(state, value) {
+      state.currentTime = value
     }
   },
   actions: {
