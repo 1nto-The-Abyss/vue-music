@@ -57,7 +57,6 @@ export default createStore({
           word: arrItem[1]
         })
       })
-      console.log(lyricArr);
       return lyricArr
     },
     // 切换播放器显示
@@ -81,7 +80,6 @@ export default createStore({
     // 导入播放列表
     updatePlayList(state, value) {
       state.playList = value
-      console.log(state.playList);
     },
     // 更新播放列表下标和歌曲Id
     updatePlayListIndex(state, value) {
