@@ -96,8 +96,8 @@ export default createStore({
     updateShowPlayer(state, value) {
       state.showPlayer = value
     },
-    // 获取播放器属性
-    getAudio(state, value) {
+    // 更新播放器属性
+    updateAudio(state, value) {
       state.audio = value
     },
     // 更新当前时间

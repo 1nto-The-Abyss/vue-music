@@ -20,7 +20,7 @@
     </div>
     <!-- 进度条 -->
     <div class="progress">
-      <div class="time">{{currentTime}}</div>
+      <div class="time">{{nowTime}}</div>
       <van-slider 
         v-model="currentRate"
         bar-height=".06rem" 
@@ -59,28 +59,29 @@
   </div>
 </template>
 <script>
-import{ computed, ref, onMounted } from 'vue'
+import{ computed, ref, watch } from 'vue'
 import { useStore } from 'vuex';
 export default {
   name: "Control",
   setup(props) {
     const store = useStore()
+    // 播放器当前时间
+    let nowTime = ref('00:00')
     // 播放器总共时间
-    let totalTime = ref(0)
+    let totalTime = ref('00:00')
     // 播放器进度
-    let currentRate = ref(10)
+    let currentRate = ref(0)
 
+    // 获取播放状态
+    const isPlayed = computed(() => store.getters.isPlayed)
     // 获取播放器信息
     const audio = computed(() => store.getters.audio)
     // 获取当前时间
-    const currentTime = computed(() => {
-      const time = store.getters.currentTime
-      return formateTime(store.getters.currentTime)
-    })
+    const currentTime = computed(() =>  store.getters.currentTime)
 
     // 播放器图标
     const playIcon = computed(() => {
-      return props.isPlayed ? '#icon-zanting' : '#icon-bofang'
+      return isPlayed.value ? '#icon-zanting' : '#icon-bofang'
     })
 
     // 点击切换播放状态
@@ -90,20 +91,31 @@ export default {
 
     // 滑动滑块
     const changeSlider = () => {
-
+      // 更新currentTime
+      const time = (currentRate.value * props.songInfo.dt) / 100
+      store.commit('updateCurrentTime',time)
+      // 更新播放器
+      audio.value.currentTime = time
+      store.commit('updateAudio',audio.value)
     }
+    // 获取总时长
+    watch(props,(newValue, oldValue) => {
+      totalTime.value = formatTime(props.songInfo.dt)
+    })
+    // 监听当前时间,控制滑块
+    watch(currentTime,(newValue,oldValue) => {
+      nowTime.value = formatTime(currentTime.value)
+      currentRate.value = (currentTime.value/props.songInfo.dt)*100
+      // console.log("监听currentTime",currentTime.value);
+    })
     // 格式化时间 从秒数转换成00:12这种
-    const formateTime = (time) => {
+    const formatTime = (time) => {
       const min = String(Math.floor(time/60)).padStart(2, '0')
       const sces = String(Math.floor(time%60)).padStart(2, '0')
       return min + ':' + sces
     }
-    onMounted(() => {
-      totalTime = props.songInfo.dt
-      console.log(props.songInfo.dt,props.songInfo);
-    })
     return {
-      currentTime,
+      nowTime,
       totalTime,
       currentRate,
       changeSlider,

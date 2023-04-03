@@ -21,7 +21,10 @@
         <use xlink:href="#icon-playlist"></use>
       </svg>
     </div>
-    <audio ref="myAudio" :src="`https://music.163.com/song/media/outer/url?id=${playList[playListIndex].id}.mp3`"></audio>
+    <audio 
+      ref="myAudio" 
+      preload="auto"
+      :src="`https://music.163.com/song/media/outer/url?id=${playList[playListIndex].id}.mp3`"/>
   </div>
 </template>
 <script>
@@ -41,6 +44,8 @@ export default {
     const isPlayed = computed(() => store.getters.isPlayed)
     // 获取歌曲Id
     const songId = computed(() => store.getters.songId)
+    // 获取当前时间
+    const currentTime = computed(() => store.getters.currentTime)
 
     // 点击切换播放状态
     const changePlay = (value) => store.commit('changePlay',value)
@@ -57,7 +62,7 @@ export default {
     watch(songId,(newValue, oldValue) => {
       myAudio.value.autoplay = true
       store.commit('changePlay',true)
-      store.commit('getAudio',myAudio.value)
+      store.commit('updateAudio',myAudio.value)
     })
 
     // 监听播放状态暂停或播放
@@ -68,9 +73,9 @@ export default {
         myAudio.value.pause()
       }
     })
-
+    
     onMounted(() => {
-      store.commit('getAudio',myAudio.value)
+      store.commit('updateAudio',myAudio.value)
     })
     return {
       playList,

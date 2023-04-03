@@ -101,6 +101,7 @@ export default {
       playListIndex,
       isPlayed,
       songId,
+      audio,
       getSongInfo
     }
   }

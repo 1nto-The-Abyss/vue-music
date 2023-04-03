@@ -10,5 +10,7 @@
 - 接口文档： https://binaryify.github.io/NeteaseCloudMusicApi/#/
 
 ## 完成界面
+### 首页
+![image](./img/首页.png)
 #### 歌单详情页
 ![image](./img/歌单.png)

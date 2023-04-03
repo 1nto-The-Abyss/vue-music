@@ -24,8 +24,8 @@ export default {
     const lyricStyle = ref("item")
 
     watch(currentTime,(newValue, oldValue) => {
-      console.log(currentTime.value);
-      console.log(lyricArr);
+      // console.log(currentTime.value);
+      // console.log(lyricArr);
       // lyricArr.value.forEach((item,index) => {
       //   if((item.time<currentTime.value && item[index+1].time>currentTime.value) || item.time == currentTime) {
       //     lyricStyle = "item_active"
