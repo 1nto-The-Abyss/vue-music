@@ -60,7 +60,7 @@ export default {
     // 获取当前时间
     const currentTime = computed(() => store.getters.currentTime)
     // 展示歌词
-    const showLrc = ref(true)
+    const showLrc = ref(false)
 
     // 获取歌曲信息
     function getSongInfo(songId, playList, playListIndex) {

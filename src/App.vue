@@ -1,13 +1,17 @@
 <template>
+  <top-nav></top-nav>
   <router-view/>
   <Player v-show="showPlayer"></Player>
 </template>
 <script>
+import TopNav from "./components/nav/TopNav.vue";
 import Player from "@/components/player/Player.vue"
-import { computed, onMounted, ref } from 'vue'
-import { mapState, useStore } from 'vuex';
+import { computed } from 'vue'
+import {  useStore } from 'vuex';
+
 export default {
   components: {
+    TopNav,
     Player
   },
   setup() {

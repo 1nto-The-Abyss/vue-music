@@ -1,7 +1,5 @@
 <template>
   <div class="home">
-    <!-- 顶部导航栏 -->
-    <top-nav></top-nav>
     <!-- 顶部轮播图 -->
     <top-swiper></top-swiper>
     <!-- 功能列表 -->
@@ -15,12 +13,11 @@
 </template>
 
 <script>
-import TopNav from './childComponents/TopNav.vue'
+import TopNav from '../../components/nav/TopNav.vue'
 import TopSwiper from './childComponents/TopSwiper.vue'
 import FeatureList from './childComponents/FeatureList.vue'
 import FoundPlayList from './childComponents/FoundPlayList.vue'
 import FoundSong from './childComponents/FoundSong.vue'
-import FoundVideo from './childComponents/FoundVideo.vue'
 export default {
   name: 'Home',
   components: {

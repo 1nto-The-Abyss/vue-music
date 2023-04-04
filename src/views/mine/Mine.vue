@@ -1,9 +1,9 @@
 <template>
-  <div></div>
+  <div>我的</div>
 </template>
 <script>
 export default {
-  name: "FoundVideo",
+  name: "Mine",
   data(){
    return {}
   },

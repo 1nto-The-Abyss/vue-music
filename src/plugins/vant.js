@@ -5,7 +5,9 @@ import {
   Lazyload,
   Icon,
   Popup,
-  Slider   
+  Slider,
+  Tab, 
+  Tabs  
 } from 'vant'
 
 const plugins = [
@@ -15,7 +17,9 @@ const plugins = [
   Lazyload,
   Icon,
   Popup,
-  Slider 
+  Slider,
+  Tab,
+  Tabs
 ]
 export default function getVant(app) {
   plugins.forEach(item => {
