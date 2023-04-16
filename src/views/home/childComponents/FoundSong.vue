@@ -48,7 +48,6 @@ export default {
       for(let index = 0; index < list.playList.length; index = index+3) {
         list.data.push(list.playList.slice(index,index+3))
       }
-      console.log(list);
     })
     return {
       list,

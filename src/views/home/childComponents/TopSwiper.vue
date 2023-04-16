@@ -14,10 +14,7 @@ export default {
   name: "TopSwiper",
   setup() {
     const images = reactive({
-      list: [
-        'https://fastly.jsdelivr.net/npm/@vant/assets/apple-1.jpeg',
-        'https://fastly.jsdelivr.net/npm/@vant/assets/apple-2.jpeg',
-      ]
+      list: []
     })
     onMounted(async () => {
       let res = await _getBanner()
