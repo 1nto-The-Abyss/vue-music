@@ -39,7 +39,6 @@ export default {
           activeIndex.value = index
           // 歌词的scrollHeight为26
           scrollHeight.value = -index*26 + 'px'
-          console.log(lyricBox.value.style);
         }
       });
     })
@@ -54,9 +53,7 @@ export default {
     //   console.log(scrollHeight.value,height,lyricArr.value[index].time);
     //   store.commit('updateCurrentTime',lyricArr.value[index].time)
     // })
-    onMounted(() => {
-      console.log(lyricBox.value.style);
-    })
+
     return { 
       lyricArr,
       currentTime,

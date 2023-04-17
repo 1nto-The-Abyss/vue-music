@@ -1,11 +1,11 @@
 <template>
   <div>
-    运存
+    关注
   </div>
 </template>
 <script>
 export default {
-  name: "Yuncun",
+  name: "Guanzhu",
   data(){
    return {}
   },

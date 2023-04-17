@@ -1,16 +1,17 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-const Home = () => import ('../views/home/Home.vue')
+const Home = () => import ('../views/home/index.vue')
 // 歌单详情页
-const PlayListDetail = () => import ('../views/playListDetail/PlayListDetail.vue')
+const PlayListDetail = () => import ('../views/playListDetail/index.vue')
 // 歌曲播放页
-const SongDetail = () => import('../views/songDetail/SongDetail.vue')
+const SongDetail = () => import('../views/songDetail/index.vue')
 // 我的
-const Mine = () => import('../views/mine/Mine.vue')
-// 云村
-const Yuncun = () => import('../views/yuncun/Yuncun.vue')
-// 视频
-const Video = () => import('../views/video/Video.vue')
+const Mine = () => import('../views/mine/index.vue')
+// 关注
+const Guanzhu = () => import('../views/guanzhu/index.vue')
+// 搜索
+const Search = () => import('../views/search/index.vue')
+
 
 const routes = [
   {
@@ -34,14 +35,14 @@ const routes = [
     component: Mine
   },
   {
-    path: '/Yuncun',
-    name: 'Yuncun',
-    component: Yuncun
+    path: '/Guanzhu',
+    name: 'Guanzhu',
+    component: Guanzhu
   },
-  {    
-    path: '/Video',
-    name: 'Video',
-    component: Video
+  {
+    path: '/Search',
+    name: 'Search',
+    component: Search
   }
 ]
 

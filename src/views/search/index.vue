@@ -1,5 +1,9 @@
 <template>
-  视频
+  <div>
+   搜索页
+
+   <van-search shape="round"></van-search>
+ </div>
 </template>
 
 <script>

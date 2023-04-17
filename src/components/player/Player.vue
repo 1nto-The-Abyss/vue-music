@@ -95,7 +95,7 @@ export default {
   position: fixed;
   bottom: 0;
   width: 100%;
-  height: 1.2rem;
+  height: 1rem;
   box-shadow: 0 .04rem .08rem rgba(0,0,0,.4);
   display: flex;
   background-color: #fff;
@@ -109,6 +109,7 @@ export default {
     width: 25%;
     text-align: center;
     vertical-align: middle;
+    transform: translateY(-0.08rem);
     img {
       width: 1rem;
       height: 1rem;
